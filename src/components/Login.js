@@ -1,28 +1,36 @@
-import React, { useState } from 'react';
-import './Login.css';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import "./Login.css";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = async () => {
+    // try {
+    //   const res = await axios.post('http://localhost:5000/api/auth/login', {
+    //     username,
+    //     password,
+    //   });
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/login', {
-        username,
-        password,
-      });
+      const res = await axios.post(
+        "https://militarymanagementsys.onrender.com/api/auth/login",
+        {
+          username,
+          password,
+        }
+      );
 
-      localStorage.setItem('token', res.data.token);
-      localStorage.setItem('role', res.data.role);
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("role", res.data.role);
 
       // Navigate based on role
-      navigate('/dashboard');
+      navigate("/dashboard");
       window.location.reload();
     } catch (err) {
-      alert('Invalid credentials');
+      alert("Invalid credentials");
     }
   };
 
